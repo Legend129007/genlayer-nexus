@@ -6,7 +6,7 @@ import { useApp, submitScoreOnChain } from "@/lib/store";
 
 const WORDS = ["CONSENSUS", "VALIDATOR", "INTELLIGENT", "GENLAYER", "CONTRACT"];
 
-function scramble(w: string) {
+function scramble(w: string): string {
   const a = w.split("");
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -78,7 +78,7 @@ export function Puzzle() {
           <motion.div key="play" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <p className="text-xs text-muted-foreground mb-2">Unscramble the GenLayer term:</p>
             <div className="flex gap-1.5 mb-5 flex-wrap">
-              {scrambled.split("").map((c, idx) => (
+              {scrambled.split("").map((c: string, idx: number) => (
                 <div key={idx} className="size-10 grid place-items-center rounded-md border border-[var(--neon-cyan)]/40 bg-[var(--neon-cyan)]/5 font-mono text-lg font-bold text-[var(--neon-cyan)]">
                   {c}
                 </div>
