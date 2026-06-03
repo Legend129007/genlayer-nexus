@@ -20,6 +20,7 @@ const DETERMINISTIC_SCRAMBLE = "SSNEUSOC"; // deterministic version of "CONSENSU
 
 export function Puzzle() {
   const { address, addScore } = useApp();
+  const [mounted, setMounted] = useState(false);
   const [word, setWord] = useState("CONSENSUS");
   const [scrambled, setScrambled] = useState(DETERMINISTIC_SCRAMBLE);
   const [guess, setGuess] = useState("");
@@ -37,6 +38,7 @@ export function Puzzle() {
     const t = Date.now();
     setStart(t);
     setNow(t);
+    setMounted(true);
   }, []);
 
   useEffect(() => {
