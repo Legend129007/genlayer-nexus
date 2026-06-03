@@ -20,6 +20,7 @@ const DETERMINISTIC_SCRAMBLE = "SSNEUSOC"; // deterministic version of "CONSENSU
 
 export function Puzzle() {
   const { address, addScore } = useApp();
+  const [mounted, setMounted] = useState(false);
   const [word, setWord] = useState("CONSENSUS");
   const [scrambled, setScrambled] = useState(DETERMINISTIC_SCRAMBLE);
   const [guess, setGuess] = useState("");
@@ -37,6 +38,7 @@ export function Puzzle() {
     const t = Date.now();
     setStart(t);
     setNow(t);
+    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -88,7 +90,9 @@ export function Puzzle() {
       </div>
 
       <AnimatePresence mode="wait">
-        {!won ? (
+        {!mounted ? (
+          <div key="boot" className="h-[180px]" />
+        ) : !won ? (
           <motion.div key="play" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <p className="text-xs text-muted-foreground mb-2">Unscramble the GenLayer term:</p>
             <div className="flex gap-1.5 mb-5 flex-wrap">
