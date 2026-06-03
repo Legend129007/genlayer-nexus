@@ -78,14 +78,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "GenLayer Nexus" },
+      { name: "description", content: "Connect your wallet to explore GenLayer facts, test your knowledge with quizzes, solve puzzles, and log your high scores on-chain to climb the global leaderboar" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "GenLayer Nexus" },
+      { property: "og:description", content: "Connect your wallet to explore GenLayer facts, test your knowledge with quizzes, solve puzzles, and log your high scores on-chain to climb the global leaderboar" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "GenLayer Nexus" },
+      { name: "twitter:description", content: "Connect your wallet to explore GenLayer facts, test your knowledge with quizzes, solve puzzles, and log your high scores on-chain to climb the global leaderboar" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/bf5c0c07-3a09-4bcb-a3af-2fd3be2f8d0d/id-preview-cdc882a9--419a2309-86c7-4c78-8e27-b907354ddd5d.lovable.app-1780483060772.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/bf5c0c07-3a09-4bcb-a3af-2fd3be2f8d0d/id-preview-cdc882a9--419a2309-86c7-4c78-8e27-b907354ddd5d.lovable.app-1780483060772.png" },
     ],
     links: [
       {
