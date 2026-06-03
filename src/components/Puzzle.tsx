@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Puzzle as PuzzleIcon, Loader2, Trophy, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
@@ -16,25 +16,36 @@ function scramble(w: string): string {
   return s === w ? scramble(w) : s;
 }
 
+const DETERMINISTIC_SCRAMBLE = "SSNEUSOC"; // deterministic version of "CONSENSUS"
+
 export function Puzzle() {
   const { address, addScore } = useApp();
-  const [word, setWord] = useState(() => WORDS[Math.floor(Math.random() * WORDS.length)]);
-  const scrambled = useMemo(() => scramble(word), [word]);
+  const [word, setWord] = useState("CONSENSUS");
+  const [scrambled, setScrambled] = useState(DETERMINISTIC_SCRAMBLE);
   const [guess, setGuess] = useState("");
-  const [start] = useState(() => Date.now());
-  const [now, setNow] = useState(Date.now());
+  const [start, setStart] = useState(0);
+  const [now, setNow] = useState(0);
   const [won, setWon] = useState(false);
   const [score, setScore] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    if (won) return;
+    const w = WORDS[Math.floor(Math.random() * WORDS.length)];
+    setWord(w);
+    setScrambled(scramble(w));
+    const t = Date.now();
+    setStart(t);
+    setNow(t);
+  }, []);
+
+  useEffect(() => {
+    if (won || !start) return;
     const id = setInterval(() => setNow(Date.now()), 250);
     return () => clearInterval(id);
-  }, [won]);
+  }, [won, start]);
 
-  const seconds = Math.floor((now - start) / 1000);
+  const seconds = start ? Math.floor((now - start) / 1000) : 0;
 
   const submit = () => {
     if (!address) { toast.error("Connect your wallet to play"); return; }
@@ -49,7 +60,10 @@ export function Puzzle() {
 
   const reset = () => {
     const w = WORDS[Math.floor(Math.random() * WORDS.length)];
-    setWord(w); setGuess(""); setWon(false); setSubmitted(false); setScore(0);
+    setWord(w); setScrambled(scramble(w)); setGuess(""); setWon(false); setSubmitted(false); setScore(0);
+    const t = Date.now();
+    setStart(t);
+    setNow(t);
   };
 
   const sendChain = async () => {
